@@ -7,9 +7,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.internal.ICameraUpdateFactoryDelegate;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.zxing.WriterException;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -22,7 +31,7 @@ import pl.r.mmdd_pum_projekt.Models.Device;
 import pl.r.mmdd_pum_projekt.Models.LocationAndTime;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final int RESULT_CAMERA_SCANNER = 4;
     GPSHelper gpsHelper;
     private Button scanQRBtn, generateQrBtn, locationBtn ,showBtn , newBtn;
@@ -31,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private QRScanner qrScanner;
     private ImageView qrCodeIV;
     private EditText dataEdt;
+
+    private GoogleMap map;
+    private SupportMapFragment supportMapFragment;
 
 
 
@@ -60,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
         this.dataEdt = (EditText) findViewById(R.id.idEdt);
         generateQrBtn = (Button) findViewById(R.id.bt_generateQR);
         qrCodeIV = (ImageView) findViewById(R.id.idIVQrcode);
+
+        supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        supportMapFragment.getMapAsync(this);
 
         //testowy
         this.device = new Device("Test");
@@ -132,5 +148,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             notifyHelper.sendNotification("Service Error", "Service error");
         }
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
+
+        LatLng test = new LatLng(20,20);
+        map.addMarker(new MarkerOptions().position(test).title("test"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(test));
     }
 }
