@@ -22,7 +22,6 @@ public class Device {
    public boolean addLocalization(LocationAndTime locationAndTime){
     return  this.localizationList.add(locationAndTime);
    }
-   //todo może nie działać
    @RequiresApi(api = Build.VERSION_CODES.O)
    public LocationAndTime getNewestLocalization(){
       if (!this.localizationList.isEmpty()){
