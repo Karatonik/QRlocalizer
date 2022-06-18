@@ -85,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
                 double latitude = gpsHelper.getLatitude();
                 double longitude = gpsHelper.getLongitude();
-                LocationAndTime locationAndTime = new LocationAndTime(latitude,longitude);
+                LocationAndTime locationAndTime = new LocationAndTime(
+                        new LatLng(latitude,longitude));
 
                 //add location to object
                 this.device.addLocalization(locationAndTime);
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             if(!this.dataEdt.getText().toString().equals("")) {
                 this.device.setName(this.dataEdt.getText().toString());
             }
+            setMap(device);
             notifyHelper.sendNotification("Device data", this.device.toString());
 
         });
@@ -133,4 +135,22 @@ public class MainActivity extends AppCompatActivity {
             notifyHelper.sendNotification("Service Error", "Service error");
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
+        map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(50,50)));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setMap(Device device){
+        map.addMarker(new MarkerOptions().position(device.getNewestLocalization().getLatLng())
+                .title(device.getName()));
+        map.moveCamera(CameraUpdateFactory.newLatLng(device.getNewestLocalization().getLatLng()));
+    }
+
+>>>>>>> Stashed changes
 }

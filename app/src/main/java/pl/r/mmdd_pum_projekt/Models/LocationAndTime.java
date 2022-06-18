@@ -4,39 +4,24 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.time.LocalDateTime;
 
 public class LocationAndTime {
 
-    private double x;
-    private double y;
+    private LatLng latLng;
     private LocalDateTime time;
 
     public LocationAndTime() {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public LocationAndTime(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public LocationAndTime(LatLng latLng) {
+        this.latLng = latLng;
         this.time = LocalDateTime.now();
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
 
     public LocalDateTime getTime() {
         return time;
@@ -46,11 +31,19 @@ public class LocationAndTime {
         this.time = time;
     }
 
+    public LatLng getLatLng() {
+        return latLng;
+    }
+
+    public void setLatLng(LatLng latLng) {
+        this.latLng = latLng;
+    }
+
     @Override
     public String toString() {
-        return
-                "x=" + x +
-                ", y=" + y +
-                ", time=" + time;
+        return "LocationAndTime{" +
+                "latLng=" + latLng +
+                ", time=" + time +
+                '}';
     }
 }

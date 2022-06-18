@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "614845455858",
+    "project_id": "qrlocalizer-2b5a3",
+    "storage_bucket": "qrlocalizer-2b5a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:614845455858:android:cf23fa0501cca1d30e5f6b",
+        "android_client_info": {
+          "package_name": "pl.r.mmdd_pum_projekt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "614845455858-r4ti105sh725lv4r3g398k4g0but4tll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBspwLRGICRFk247cGJiB1v67xgISyiewg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "614845455858-r4ti105sh725lv4r3g398k4g0but4tll.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
