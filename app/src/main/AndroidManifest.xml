@@ -26,6 +26,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".DeviceListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterDeviceActivity"
+            android:exported="false" />
+        <activity android:name=".MapActivity"
+            android:exported="false"/>
+        <activity
             android:name=".Helpers.Capture"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"

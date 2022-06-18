@@ -31,18 +31,18 @@ import pl.r.mmdd_pum_projekt.Models.Device;
 import pl.r.mmdd_pum_projekt.Models.LocationAndTime;
 
 
-public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity {
     private static final int RESULT_CAMERA_SCANNER = 4;
-    GPSHelper gpsHelper;
-    private Button scanQRBtn, generateQrBtn, locationBtn ,showBtn , newBtn;
-    private String deviceName;
+    //GPSHelper gpsHelper;
+    private Button scanQRBtn, generateQrBtn, locationBtn ,showBtn , newBtn, regBtn, listBtn;
+   // private String deviceName;
     private NotifyHelper notifyHelper;
     private QRScanner qrScanner;
-    private ImageView qrCodeIV;
-    private EditText dataEdt;
+  //  private ImageView qrCodeIV;
+ //   private EditText dataEdt;
 
-    private GoogleMap map;
-    private SupportMapFragment supportMapFragment;
+  /*  private GoogleMap map;
+    private SupportMapFragment supportMapFragment;*/
 
 
 
@@ -62,27 +62,44 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         this.qrScanner =QRScanner.getInstance(getApplicationContext(),
                 MainActivity.this);
 
-        this.gpsHelper = new GPSHelper(this);
-        this.gpsHelper.getPermission(this);
+       // this.gpsHelper = new GPSHelper(this);
+      //  this.gpsHelper.getPermission(this);
 
-        this.locationBtn = (Button) findViewById(R.id.bt_gps);
+        this.listBtn =(Button) findViewById(R.id.goToList);
+        this.regBtn = (Button) findViewById(R.id.goToReg);
+
+        listBtn.setOnClickListener(v->{
+            Intent intent = new Intent(this, DeviceListActivity.class);
+            startActivity(intent);
+        });
+        regBtn.setOnClickListener(v->{
+            Intent intent = new Intent(this, RegisterDeviceActivity.class);
+            startActivity(intent);
+        });
+
+
+
         this.scanQRBtn = (Button) findViewById(R.id.bt_scan);
-        this.newBtn = (Button) findViewById(R.id.bt_new);
-        this.showBtn = (Button) findViewById(R.id.bt_showRecord);
-        this.dataEdt = (EditText) findViewById(R.id.idEdt);
-        generateQrBtn = (Button) findViewById(R.id.bt_generateQR);
-        qrCodeIV = (ImageView) findViewById(R.id.idIVQrcode);
-
-        supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        supportMapFragment.getMapAsync(this);
-
-        //testowy
-        this.device = new Device("Test");
 
         scanQRBtn.setOnClickListener(view -> {
             qrScanner.scanCode();
         });
+        //this.locationBtn = (Button) findViewById(R.id.bt_gps);
+       // this.newBtn = (Button) findViewById(R.id.bt_new);
+       // this.showBtn = (Button) findViewById(R.id.bt_showRecord);
+       // this.dataEdt = (EditText) findViewById(R.id.idEdt);
+       // generateQrBtn = (Button) findViewById(R.id.bt_generateQR);
+       // qrCodeIV = (ImageView) findViewById(R.id.idIVQrcode);
+
+       // supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
+             //   .findFragmentById(R.id.map);
+       // supportMapFragment.getMapAsync(this);
+
+        //testowy
+     //   this.device = new Device("Test");
+
+
+        /*
         generateQrBtn.setOnClickListener(v -> {
             try {
                 if(!this.dataEdt.getText().toString().equals("")) {
@@ -94,9 +111,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (WriterException e) {
                 e.printStackTrace();
             }
-        });
+        });*/
 
-        locationBtn.setOnClickListener(v -> {
+       /* locationBtn.setOnClickListener(v -> {
             if (gpsHelper.canGetLocation()) {
 
                 double latitude = gpsHelper.getLatitude();
@@ -111,9 +128,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             } else {
                 notifyHelper.sendNotification("Service Error", "Service error");
             }
-        });
+        });*/
 
-        showBtn.setOnClickListener(v->{
+     /*   showBtn.setOnClickListener(v->{
             if(!this.dataEdt.getText().toString().equals("")) {
                 this.device.setName(this.dataEdt.getText().toString());
             }
@@ -124,7 +141,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         this.newBtn.setOnClickListener(v->{
             notifyHelper.sendNotification("The newest data", this.device.getNewestLocalization().toString());
-        });
+        });*/
     }
 
 
@@ -138,8 +155,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                     IntentResult intentResult = IntentIntegrator.parseActivityResult(resultCode, data);
                     System.out.println(data.getData());
                     if (intentResult.getContents() != null) {
-                        this.device.setName(intentResult.getContents());
-                        notifyHelper.sendNotification("Device detected", this.device.getName());
+                        //regex
+                        notifyHelper.sendNotification("Device detected", intentResult.getContents());
 
                     } else {
                         notifyHelper.sendNotification("Service Scanner Error", "Cannot detected barcode");
@@ -152,7 +169,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-
+/*
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
@@ -165,5 +182,5 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 .title(device.getName()));
         map.moveCamera(CameraUpdateFactory.newLatLng(device.getNewestLocalization().getLatLng()));
     }
-
+*/
 }

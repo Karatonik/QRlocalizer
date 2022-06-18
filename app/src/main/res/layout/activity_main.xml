@@ -8,62 +8,27 @@
     tools:context=".MainActivity">
 
 
-    <EditText
-        android:id="@+id/idEdt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:autofillHints=""
-        android:hint="@string/device_name"
-        android:inputType="text" />
-
-    <Button
-        android:id="@+id/bt_gps"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="@string/get_location" />
-
     <Button
         android:id="@+id/bt_scan"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="200dp"
         android:text="@string/scan_barcode" />
 
+    <Button
+        android:id="@+id/goToReg"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:text="Register device" />
 
     <Button
-        android:id="@+id/bt_showRecord"
+        android:id="@+id/goToList"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="@string/show" />
+        android:layout_height="200dp"
+        android:text="Device list" />
 
-    <Button
-        android:id="@+id/bt_new"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="Show the newest data" />
-    <Button
-        android:id="@+id/bt_generateQR"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:text="@string/generate_qr_code" />
-
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        />
-
-    <ImageView
-        android:id="@+id/idIVQrcode"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/qr_code" />
-
-
-
-
+        android:layout_height="100dp"
+        android:text="Version:1.0.0 (alfa)"/>
 
 </LinearLayout>
