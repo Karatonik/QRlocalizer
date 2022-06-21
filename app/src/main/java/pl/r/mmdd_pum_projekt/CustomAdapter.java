@@ -3,6 +3,7 @@ package pl.r.mmdd_pum_projekt;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             Intent intent = new Intent(context, MapActivity.class);
             intent.putExtra("device",devices.get(position));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("local",devices.get(position).getNewestLocalization());
+            intent.putExtra("local",  devices.get(position).getNewestLocalization());
             context.startActivity(intent);
         });
     }

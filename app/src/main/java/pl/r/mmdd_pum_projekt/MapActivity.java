@@ -14,6 +14,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import pl.r.mmdd_pum_projekt.Models.Device;
@@ -51,8 +52,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
-        map.moveCamera(CameraUpdateFactory.newLatLng(locationAndTime.getLatLng()));
-        map.addMarker(new MarkerOptions().position(locationAndTime.getLatLng())
+        map.moveCamera(CameraUpdateFactory.newLatLng(locationAndTime.getLatLng().getGoogleLatLng()));
+        map.addMarker(new MarkerOptions().position(locationAndTime.getLatLng().getGoogleLatLng())
                 .title(device.getName()));
     }
 }

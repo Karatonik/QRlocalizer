@@ -6,9 +6,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.android.gms.maps.model.LatLng;
+import org.joda.time.LocalDateTime;
 
-import java.time.LocalDateTime;
 
 public class LocationAndTime implements Parcelable {
 
@@ -29,15 +28,6 @@ public class LocationAndTime implements Parcelable {
         latLng = in.readParcelable(LatLng.class.getClassLoader());
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(latLng, flags);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
     public static final Creator<LocationAndTime> CREATOR = new Creator<LocationAndTime>() {
         @Override
@@ -73,5 +63,14 @@ public class LocationAndTime implements Parcelable {
                 "latLng=" + latLng +
                 ", time=" + time +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
     }
 }

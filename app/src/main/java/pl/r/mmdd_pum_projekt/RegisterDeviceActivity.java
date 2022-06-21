@@ -1,18 +1,26 @@
 package pl.r.mmdd_pum_projekt;
 
-import android.app.Activity;
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.maps.model.LatLng;
+import pl.r.mmdd_pum_projekt.Models.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.WriterException;
 
 import pl.r.mmdd_pum_projekt.Helpers.GPSHelper;
@@ -32,6 +40,13 @@ private NotifyHelper notifyHelper;
 private ImageView qrCodeIV;
 private Button goMainBtn;
 
+String userID;
+String dbURL = "https://qrlocalizer-2b5a3-default-rtdb.europe-west1.firebasedatabase.app";
+private FirebaseAuth mAuth;
+private FirebaseAuth.AuthStateListener mAuthListener;
+private FirebaseDatabase mFirebaseDatabase;
+private DatabaseReference myRef;
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -43,6 +58,33 @@ private Button goMainBtn;
         editText = (EditText) findViewById(R.id.idEdt);
         Button submitBtn = (Button) findViewById(R.id.register);
         qrCodeIV = (ImageView) findViewById(R.id.idIVQrcode);
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance(dbURL);
+        myRef = mFirebaseDatabase.getReference();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null)
+        {
+            userID = user.getUid();
+        }
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    toastMessage("Successfully signed in with: " + user.getEmail());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                    toastMessage("Successfully signed out.");
+                }
+                // ...
+            }
+        };
+
 
         goMainBtn = (Button) findViewById(R.id.fromRegToMain);
 
@@ -56,8 +98,9 @@ private Button goMainBtn;
                 device = new Device(editText.getText().toString());
                 LocationAndTime locationAndTime = new LocationAndTime(new LatLng(
                         gpsHelper.getLatitude(),gpsHelper.getLongitude()));
-                device.addLocalization(locationAndTime);
+                device.addLocalization(locationAndTime); //Pruje się o LocationAndTime, sam device jest ok
                 //save to db
+                myRef.child("devices").push().setValue(device);
 
                 try {
                     this.qrCodeIV.setImageBitmap(QRGenerator.generateQRCode(this.device.getName()));
@@ -70,5 +113,23 @@ private Button goMainBtn;
             }
 
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 }
