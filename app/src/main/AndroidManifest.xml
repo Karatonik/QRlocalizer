@@ -29,6 +29,9 @@
             android:name=".DeviceListActivity"
             android:exported="false" />
         <activity
+            android:name=".QRCode_Activity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterDeviceActivity"
             android:exported="false" />
         <activity android:name=".MapActivity"

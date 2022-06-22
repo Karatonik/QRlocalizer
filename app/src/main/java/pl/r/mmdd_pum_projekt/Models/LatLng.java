@@ -1,8 +1,11 @@
 package pl.r.mmdd_pum_projekt.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
-public class LatLng {
+public class LatLng implements Parcelable {
     private   double latitude;
 
     private double longitude;
@@ -14,6 +17,23 @@ public class LatLng {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    protected LatLng(Parcel in) {
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+    }
+
+    public static final Creator<LatLng> CREATOR = new Creator<LatLng>() {
+        @Override
+        public LatLng createFromParcel(Parcel in) {
+            return new LatLng(in);
+        }
+
+        @Override
+        public LatLng[] newArray(int size) {
+            return new LatLng[size];
+        }
+    };
 
     public com.google.android.gms.maps.model.LatLng getGoogleLatLng(){
         return new com.google.android.gms.maps.model.LatLng(this.latitude,this.longitude);
@@ -54,5 +74,16 @@ public class LatLng {
                 "latitude=" + latitude +
                 ", longitude=" + longitude +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeDouble(latitude);
+        parcel.writeDouble(longitude);
     }
 }

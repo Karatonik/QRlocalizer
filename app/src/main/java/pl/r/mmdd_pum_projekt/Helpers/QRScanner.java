@@ -1,5 +1,6 @@
 package pl.r.mmdd_pum_projekt.Helpers;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 
@@ -7,10 +8,10 @@ import com.google.zxing.integration.android.IntentIntegrator;
 
 public class QRScanner {
     private static final int RESULT_CAMERA_SCANNER = 4;
-    private Context context;
 
-    private Activity activity;
+    private final Activity activity;
 
+    @SuppressLint("StaticFieldLeak")
     private static QRScanner qrScanner_instance = null;
 
 
@@ -21,11 +22,7 @@ public class QRScanner {
         return qrScanner_instance;
     }
 
-    private QRScanner() {
-    }
-
     private QRScanner(Context context, Activity activity) {
-        this.context = context;
         this.activity = activity;
     }
 
