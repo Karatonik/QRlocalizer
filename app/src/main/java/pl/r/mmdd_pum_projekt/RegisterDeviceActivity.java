@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -44,7 +43,6 @@ public class RegisterDeviceActivity extends AppCompatActivity {
         Button submitBtn = findViewById(R.id.register);
         qrCodeIV = findViewById(R.id.idIVQrcode);
 
-
         Button goMainBtn = findViewById(R.id.fromRegToMain);
 
         goMainBtn.setOnClickListener(v -> {
@@ -58,16 +56,22 @@ public class RegisterDeviceActivity extends AppCompatActivity {
                 firebaseHelper.db().child("devices").child(editText.getText()
                         .toString()).get().addOnCompleteListener(v1 -> {
                     if (!v1.getResult().exists()) {
-                        this.device = new Device(editText.getText().toString(), new LatLng(
-                                gpsHelper.getLatitude(), gpsHelper.getLongitude()));
+                        if(gpsHelper.isLocationEnabled()) {
 
-                        firebaseHelper.db().child("devices").child(this.device.getName()).setValue(this.device);
-                        try {
-                            this.qrCodeIV.setImageBitmap(QRGenerator.generateQRCode(this.device.getName()));
-                        } catch (WriterException e) {
-                            e.printStackTrace();
+                            device = new Device(editText.getText().toString(), new LatLng(
+                                    gpsHelper.getLatitude(), gpsHelper.getLongitude()));
+
+                            firebaseHelper.db().child("devices").child(device.getName())
+                                    .setValue(device);
+                            try {
+                                this.qrCodeIV.setImageBitmap(QRGenerator.generateQRCode(device.getName()));
+                            } catch (WriterException e) {
+                                e.printStackTrace();
+                            }
+                            notifyHelper.sendNotification("Success", "Save Device");
+                        }else{
+                            notifyHelper.sendNotification("Error", "Turn on GPS");
                         }
-                        notifyHelper.sendNotification("Success", "Save Device");
                     } else {
                         notifyHelper.sendNotification("Error", "Object exist");
                     }

@@ -36,7 +36,6 @@ public class QRCode_Activity extends AppCompatActivity {
 
         deviceTv.setText(deviceName + " " + latLng);
 
-
         ImageView imageView = findViewById(R.id.idIVQrcode1);
 
         try {

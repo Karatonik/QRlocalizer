@@ -1,5 +1,7 @@
 package pl.r.mmdd_pum_projekt.Models;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public class Device {
@@ -34,6 +36,7 @@ public class Device {
     }
 
 
+    @NonNull
     @Override
     public String toString() {
         return "Device{" +

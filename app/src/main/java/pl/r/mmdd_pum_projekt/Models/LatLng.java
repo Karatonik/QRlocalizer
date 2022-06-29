@@ -3,6 +3,8 @@ package pl.r.mmdd_pum_projekt.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public class LatLng implements Parcelable {
@@ -39,22 +41,6 @@ public class LatLng implements Parcelable {
         return new com.google.android.gms.maps.model.LatLng(this.latitude,this.longitude);
     }
 
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,6 +54,7 @@ public class LatLng implements Parcelable {
         return Objects.hash(latitude, longitude);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "LatLng{" +

@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
         scanQRBtn.setOnClickListener(view -> qrScanner.scanCode());
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -72,18 +71,18 @@ public class MainActivity extends AppCompatActivity {
                 if (intentResult.getContents() != null) {
 
                     String deviceName = intentResult.getContents();
-                    if (pattern.matcher(deviceName).find()) {
+                    if (pattern.matcher(deviceName).find() && gpsHelper.isLocationEnabled()) {
 
                         deviceName = deviceName.substring(12);
-                        System.out.println(deviceName);
+                        String finalDeviceName1 = deviceName;
 
-                        String finalDeviceName = deviceName;
                         firebaseHelper.db().child("devices").child(deviceName).get().addOnCompleteListener(v -> {
                             Device device = v.getResult().getValue(Device.class);
+                            assert device != null;
                             device.setLatLng(new LatLng(gpsHelper.getLatitude(), gpsHelper.getLongitude()));
                             System.out.println(device);
 
-                            firebaseHelper.db().child("devices").child(finalDeviceName).setValue(device);
+                            firebaseHelper.db().child("devices").child(finalDeviceName1).setValue(device);
                         });
                     }
 
