@@ -7,8 +7,14 @@
         <entry key="..\:/mobline/MMDD_PUM_Projekt/app/src/main/res/layout/activity_main.xml" value="0.2979942693409742" />
         <entry key="..\:/mobline/MMDD_PUM_Projekt/app/src/main/res/layout/list_activity.xml" value="0.1837431693989071" />
         <entry key="..\:/mobline/MMDD_PUM_Projekt/app/src/main/res/layout/map_activity.xml" value="0.24365942028985507" />
-        <entry key="..\:/mobline/MMDD_PUM_Projekt/app/src/main/res/layout/my_row.xml" value="0.1" />
+        <entry key="..\:/mobline/MMDD_PUM_Projekt/app/src/main/res/layout/my_row.xml" value="0.18" />
+        <entry key="..\:/mobline/MMDD_PUM_Projekt/app/src/main/res/layout/qrcode_activity.xml" value="0.1" />
         <entry key="..\:/mobline/MMDD_PUM_Projekt/app/src/main/res/layout/register_activity.xml" value="0.24365942028985507" />
+        <entry key="..\:/studia/Magisterka/Semestr I/Mobilki/Projekt/QRlocalizer/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/studia/Magisterka/Semestr I/Mobilki/Projekt/QRlocalizer/app/src/main/res/layout/list_activity.xml" value="0.25" />
+        <entry key="..\:/studia/Magisterka/Semestr I/Mobilki/Projekt/QRlocalizer/app/src/main/res/layout/map_activity.xml" value="0.25" />
+        <entry key="..\:/studia/Magisterka/Semestr I/Mobilki/Projekt/QRlocalizer/app/src/main/res/layout/my_row.xml" value="0.25" />
+        <entry key="..\:/studia/Magisterka/Semestr I/Mobilki/Projekt/QRlocalizer/app/src/main/res/layout/register_activity.xml" value="0.25" />
       </map>
     </option>
   </component>

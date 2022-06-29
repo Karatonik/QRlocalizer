@@ -1,82 +1,60 @@
 package pl.r.mmdd_pum_projekt.Models;
 
-import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
+import androidx.annotation.NonNull;
 
-import androidx.annotation.RequiresApi;
+import java.util.Objects;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+public class Device {
 
-public class Device implements Parcelable {
 
-   private String name;
+    private String name;
+    private LatLng latLng;
 
-   private List<LocationAndTime> localizationList;
+    public Device(String name, LatLng latLng) {
+        this.name = name;
+        this.latLng = latLng;
+    }
 
-   public Device(String name) {
-      this.name = name;
-      this.localizationList = new ArrayList<>();
-   }
+    public Device() {
+    }
 
-   protected Device(Parcel in) {
-      name = in.readString();
-   }
 
-   public static final Creator<Device> CREATOR = new Creator<Device>() {
-      @Override
-      public Device createFromParcel(Parcel in) {
-         return new Device(in);
-      }
+    public LatLng getLatLng() {
+        return latLng;
+    }
 
-      @Override
-      public Device[] newArray(int size) {
-         return new Device[size];
-      }
-   };
+    public void setLatLng(LatLng latLng) {
+        this.latLng = latLng;
+    }
 
-   public boolean addLocalization(LocationAndTime locationAndTime){
-    return  this.localizationList.add(locationAndTime);
-   }
-   @RequiresApi(api = Build.VERSION_CODES.O)
-   public LocationAndTime getNewestLocalization(){
-      if (!this.localizationList.isEmpty()){
-         return this.localizationList.stream().max(Comparator.comparing(LocationAndTime::getTime)).get();
-      }
-      return new LocationAndTime();
-   }
+    public String getName() {
+        return name;
+    }
 
-   public String getName() {
-      return name;
-   }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   public void setName(String name) {
-      this.name = name;
-   }
 
-   public List<LocationAndTime> getLocalizationList() {
-      return localizationList;
-   }
+    @NonNull
+    @Override
+    public String toString() {
+        return "Device{" +
+                "name='" + name + '\'' +
+                ", latLng=" + latLng +
+                '}';
+    }
 
-   public void setLocalizationList(List<LocationAndTime> localizationList) {
-      this.localizationList = localizationList;
-   }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Device device = (Device) o;
+        return Objects.equals(name, device.name) && Objects.equals(latLng, device.latLng);
+    }
 
-   @Override
-   public String toString() {
-      return "name='" + name + '\'' +
-              ", localizationList=" + localizationList;
-   }
-
-   @Override
-   public int describeContents() {
-      return 0;
-   }
-
-   @Override
-   public void writeToParcel(Parcel parcel, int i) {
-      parcel.writeString(name);
-   }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, latLng);
+    }
 }

@@ -16,27 +16,24 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import pl.r.mmdd_pum_projekt.Models.Device;
-import pl.r.mmdd_pum_projekt.Models.LocationAndTime;
+import pl.r.mmdd_pum_projekt.Models.LatLng;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     Button button;
-    private GoogleMap map;
-    private SupportMapFragment supportMapFragment;
-    private Device device;
-    private LocationAndTime locationAndTime;
+    private String deviceName;
+    private LatLng latLng;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_activity);
-        locationAndTime = getIntent().getParcelableExtra("local");
-        device = getIntent().getParcelableExtra("device");
+        this.deviceName = getIntent().getStringExtra("deviceName");
+        this.latLng = getIntent().getParcelableExtra("latLng");
 
-
-        supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        assert supportMapFragment != null;
         supportMapFragment.getMapAsync(this);
 
         button = findViewById(R.id.bt_to_at1);
@@ -50,9 +47,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        map = googleMap;
-        map.moveCamera(CameraUpdateFactory.newLatLng(locationAndTime.getLatLng()));
-        map.addMarker(new MarkerOptions().position(locationAndTime.getLatLng())
-                .title(device.getName()));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(this.latLng.getGoogleLatLng()));
+        googleMap.addMarker(new MarkerOptions().position(this.latLng.getGoogleLatLng())
+                .title(deviceName));
     }
 }

@@ -9,8 +9,6 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-
 import pl.r.mmdd_pum_projekt.R;
 
 public class NotifyHelper {

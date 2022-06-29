@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">QRLocalizer</string>
-    <string name="scan_barcode">scan</string>
+    <string name="scan_barcode">SCAN/UPDATE</string>
     <string name="generate_qr_code">Generate QR Code</string>
     <string name="qr_code">qr_code</string>
     <string name="device_name">Device Name</string>
     <string name="get_location">Get location</string>
     <string name="show">Show record</string>
     <string name="go_back">Back</string>
+    <string name="version_apk">Version:1.1.0 (final)</string>
 </resources>
