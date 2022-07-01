@@ -7,7 +7,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <Button
         android:id="@+id/bt_scan"
         android:layout_width="match_parent"
@@ -26,9 +25,10 @@
         android:layout_height="200dp"
         android:text="Device list" />
 
-    <TextView
+    <Button
+        android:id="@+id/bt_permission"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="@string/version_apk"/>
+        android:layout_height="200dp"
+        android:text="GET PERMISSION TO STORAGE" />
 
 </LinearLayout>

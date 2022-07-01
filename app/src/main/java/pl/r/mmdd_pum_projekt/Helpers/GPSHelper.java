@@ -42,10 +42,11 @@ public class GPSHelper extends Service implements LocationListener {
         if (ActivityCompat.checkSelfPermission(context,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(context,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+               {
             ActivityCompat.requestPermissions(activity,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION
-                            , Manifest.permission.ACCESS_COARSE_LOCATION},
+                            , Manifest.permission.ACCESS_COARSE_LOCATION} ,
                     2);
             return false;
         }
