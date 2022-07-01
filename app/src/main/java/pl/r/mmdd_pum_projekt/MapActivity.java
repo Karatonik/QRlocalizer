@@ -31,6 +31,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         this.deviceName = getIntent().getStringExtra("deviceName");
         this.latLng = getIntent().getParcelableExtra("latLng");
 
+        System.out.println(this.latLng);
+
         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         assert supportMapFragment != null;
@@ -47,8 +49,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(this.latLng.getGoogleLatLng()));
-        googleMap.addMarker(new MarkerOptions().position(this.latLng.getGoogleLatLng())
+        com.google.android.gms.maps.model.LatLng LatLngGoogle =
+                new com.google.android.gms.maps.model.LatLng(this.latLng.getLatitude(),this.latLng.getLongitude());
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(LatLngGoogle));
+        //googleMap.moveCamera(CameraUpdateFactory.newLatLng(this.latLng.getGoogleLatLng()));
+        googleMap.addMarker(new MarkerOptions().position(LatLngGoogle)
                 .title(deviceName));
     }
 }

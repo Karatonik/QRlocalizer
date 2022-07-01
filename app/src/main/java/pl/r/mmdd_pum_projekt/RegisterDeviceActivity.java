@@ -56,13 +56,13 @@ public class RegisterDeviceActivity extends AppCompatActivity {
                 firebaseHelper.db().child("devices").child(editText.getText()
                         .toString()).get().addOnCompleteListener(v1 -> {
                     if (!v1.getResult().exists()) {
-                        if(gpsHelper.isLocationEnabled()) {
+                        if(gpsHelper.isLocationEnabled() && gpsHelper.getLongitude() != 0.0) {
 
-                            device = new Device(editText.getText().toString(), new LatLng(
+                            this.device = new Device(editText.getText().toString(), new LatLng(
                                     gpsHelper.getLatitude(), gpsHelper.getLongitude()));
 
                             firebaseHelper.db().child("devices").child(device.getName())
-                                    .setValue(device);
+                                    .setValue(this.device);
                             try {
                                 this.qrCodeIV.setImageBitmap(QRGenerator.generateQRCode(device.getName()));
                             } catch (WriterException e) {
