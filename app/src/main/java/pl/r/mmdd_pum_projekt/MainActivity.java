@@ -79,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
 
                         firebaseHelper.db().child("devices").child(deviceName).get().addOnCompleteListener(v -> {
                             Device device = v.getResult().getValue(Device.class);
+                            System.out.println(device);
                             LatLng latLng = new LatLng(gpsHelper.getLatitude(),gpsHelper.getLongitude());
                                 device.setLatLng(latLng);
+                                firebaseHelper.db().child("devices").child(finalDeviceName1).removeValue();
                                 firebaseHelper.db().child("devices").child(finalDeviceName1).setValue(device);
                         });
                     }
