@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,18 +72,16 @@ public class MainActivity extends AppCompatActivity {
                 if (intentResult.getContents() != null) {
 
                     String deviceName = intentResult.getContents();
-                    if (pattern.matcher(deviceName).find() && gpsHelper.isLocationEnabled()) {
+                    if (pattern.matcher(deviceName).find() && gpsHelper.isLocationEnabled() && gpsHelper.getLongitude() != 0.0) {
 
                         deviceName = deviceName.substring(12);
                         String finalDeviceName1 = deviceName;
 
                         firebaseHelper.db().child("devices").child(deviceName).get().addOnCompleteListener(v -> {
                             Device device = v.getResult().getValue(Device.class);
-                            assert device != null;
-                            device.setLatLng(new LatLng(gpsHelper.getLatitude(), gpsHelper.getLongitude()));
-                            System.out.println(device);
-
-                            firebaseHelper.db().child("devices").child(finalDeviceName1).setValue(device);
+                            LatLng latLng = new LatLng(gpsHelper.getLatitude(),gpsHelper.getLongitude());
+                                device.setLatLng(latLng);
+                                firebaseHelper.db().child("devices").child(finalDeviceName1).setValue(device);
                         });
                     }
 

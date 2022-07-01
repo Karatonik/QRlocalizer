@@ -2,6 +2,8 @@ package pl.r.mmdd_pum_projekt.Models;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.database.PropertyName;
+
 import java.util.Objects;
 
 public class Device {
@@ -18,11 +20,12 @@ public class Device {
     public Device() {
     }
 
-
+    @PropertyName("LatLng")
     public LatLng getLatLng() {
         return latLng;
     }
 
+    @PropertyName("LatLng")
     public void setLatLng(LatLng latLng) {
         this.latLng = latLng;
     }

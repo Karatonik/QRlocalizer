@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import com.google.firebase.database.PropertyName;
+
 import java.util.Objects;
 
 public class LatLng implements Parcelable {
@@ -23,6 +25,23 @@ public class LatLng implements Parcelable {
     protected LatLng(Parcel in) {
         latitude = in.readDouble();
         longitude = in.readDouble();
+    }
+
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public static final Creator<LatLng> CREATOR = new Creator<LatLng>() {
